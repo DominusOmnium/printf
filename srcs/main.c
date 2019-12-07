@@ -12,13 +12,34 @@
 
 #include "ft_printf.h"
 
-int ft_printf(const char *format, ...)
+void	reset(t_printf *p)
 {
+	p->flags = (t_flags){false, false, false, false, false};
+	p->precision = -1;
+	p->width = -1;
+	p->spec = sp_none;
+}
+
+int		ft_printf(const char *format, ...)
+{
+	va_list		args;
+	t_printf	*p;
+
+	va_start(args, format);
+	p = ft_memalloc(sizeof(t_printf));
+	reset(p);
+	p->print_num = 0;
+	p->print = NULL;
+	while (format)
+	{
+		if ()
+	}
+	write(1, p->print, p->print_num);
 	return (0);
 }
 
 
-int main()
+int		main()
 {
 	return (ft_printf("", 1));
 }
