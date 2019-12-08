@@ -15,12 +15,12 @@
 
 typedef enum
 {
-	sp_l, sp_ll, sp_h, sp_hh, sp_L, sp_none
+	sp_none, sp_hh, sp_h, sp_l, sp_ll, sp_L 
 }				t_spec;
 typedef enum
 {
-	type_int, type_char, type_unsigned, type_octal, type_hex, type_str,
-	type_float, type_pointer, type_percent
+	type_int, type_char, type_unsigned, type_octal, type_hex_low, type_hex_high,
+	type_float, type_pointer, type_percent, type_str
 }				t_type;
 typedef struct	s_flags
 {

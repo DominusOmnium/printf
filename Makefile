@@ -10,7 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = q
+NAME1 = libftprintf.a
 
 SRCDIR = srcs/
 INCDIR = includes/
@@ -25,8 +26,8 @@ CFLAGS = -g
 
 FTDIR = libft/
 FTLIB = $(addprefix $(FTDIR), libft.a)
-FTINC = -I $(FTDIR)/includes
-FTLNK = -L $(FTDIR) -l ft
+FTINC = -I $(FTDIR)includes
+FTLNK = -L $(FTDIR)
 
 all: obj $(FTLIB) $(NAME)
 
@@ -40,7 +41,7 @@ $(FTLIB):
 	make -C $(FTDIR)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(FTLNK) -o $(NAME)
+	$(CC) $(OBJS) $(FTLIB) $(FTLNK) $(FTINC) -o $(NAME)
 
 clean:
 	rm -rf $(OBJDIR)
