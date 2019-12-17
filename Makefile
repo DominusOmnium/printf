@@ -6,7 +6,7 @@
 #    By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 12:08:40 by dkathlee          #+#    #+#              #
-#    Updated: 2019/12/04 13:06:19 by dkathlee         ###   ########.fr        #
+#    Updated: 2019/12/17 12:03:26 by dkathlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCDIR = srcs/
 INCDIR = includes/
 OBJDIR = obj/
 
-SRCS =	main.c
+SRCS =	main.c parse_args.c
 
 OBJS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 
