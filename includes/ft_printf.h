@@ -3,25 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:57:14 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/03 16:57:14 by marvin           ###   ########.fr       */
+/*   Updated: 2019/12/17 11:51:29 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "libft.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+# include <stdarg.h>
+# include "libft.h"
 
 typedef enum
 {
-	sp_none, sp_hh, sp_h, sp_l, sp_ll, sp_L 
-}				t_spec;
+	sp_none, sp_hh, sp_h, sp_l, sp_ll, sp_L
+}	t_spec;
 typedef enum
 {
-	type_int, type_char, type_unsigned, type_octal, type_hex_low, type_hex_high,
-	type_float, type_pointer, type_percent, type_str
-}				t_type;
+	type_int = 1, type_char = 2, type_unsigned = 4, type_octal = 8,
+	type_hex_low = 16, type_hex_high = 32, type_float = 64, type_pointer = 128,
+	type_percent = 256, type_str = 512
+}	t_type;
 typedef struct	s_flags
 {
 	t_uint8	minus;
@@ -39,4 +42,7 @@ typedef struct	s_printf
 	t_type	type;
 	int		width;
 	int		precision;
+	va_list	args;
 }				t_printf;
+char			*get_str_from_arg(const char **format, t_printf *p);
+#endif
