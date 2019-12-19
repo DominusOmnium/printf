@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 12:08:40 by dkathlee          #+#    #+#              #
-#    Updated: 2019/12/04 13:06:19 by dkathlee         ###   ########.fr        #
+#    Updated: 2019/12/11 19:59:13 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS =	main.c
 OBJS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 
 CC = gcc
-CFLAGS = -g
+CFLAGS = -ggdb
 
 FTDIR = libft/
 FTLIB = $(addprefix $(FTDIR), libft.a)
@@ -35,13 +35,13 @@ obj:
 	mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
-	$(CC) $(CFLAGS) $(FTINC) -I $(INCDIR) -o $@ -c $<
+	$(CC) $(FTINC) -I $(INCDIR) $(CFLAGS) -o $@ -c $<
 
 $(FTLIB):
 	make -C $(FTDIR)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(FTLIB) $(FTLNK) $(FTINC) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(FTLIB) $(FTLNK) $(FTINC) -o $(NAME)
 
 clean:
 	rm -rf $(OBJDIR)

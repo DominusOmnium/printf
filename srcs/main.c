@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:53:15 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/03 16:53:15 by marvin           ###   ########.fr       */
+/*   Updated: 2019/12/11 20:03:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,6 @@ void	reset(t_printf *p)
 	p->precision = -1;
 	p->width = -1;
 	p->spec = sp_none;
-}
-
-int		is_spec_symb(char c)
-{
-	if (c == '%' || c == ' ' || c == '-' || c == '+' || c == '#')
-		return (1);
-	return (0);
 }
 
 int		is_flag(char c)
@@ -42,7 +35,7 @@ int		is_type(char c)
 	return (false);
 }
 
-void	parcing_format(char **f, t_printf *p)
+void	parcing_format(const char **f, t_printf *p)
 {
 	if (**f == 'd' || **f == 'i')
 		p->type = type_int;
@@ -69,15 +62,15 @@ void	parcing_format(char **f, t_printf *p)
 	*f++;
 }
 
-void	check_flags_and_specs(char **f, t_printf *p)
+void	check_flags_and_specs(const char **f, t_printf *p)
 {
 	while (!is_type(**f) && **f)
 	{
-		p->flags.hashtag = **f == '#' ? true : false;
-		p->flags.minus = **f == '-' ? true : false;
-		p->flags.plus = **f == '+' ? true : false;
-		p->flags.space = **f == ' ' ? true : false;
-		p->flags.zero = **f == '0' ? true : false;
+		p->flags.hashtag = (**f == '#') ? true : false;
+		p->flags.minus = (**f == '-') ? true : false;
+		p->flags.plus = (**f == '+') ? true : false;
+		p->flags.space = (**f == ' ') ? true : false;
+		p->flags.zero = (**f == '0') ? true : false;
 		if (**f == 'h' && **(f + 1) == 'h' && p->spec < sp_hh)
 			p->spec = sp_hh;
 		else if (**f == 'h' && *(*f + 1) != 'h' && p->spec < sp_h)
@@ -136,11 +129,15 @@ int		ft_printf(const char *format, ...)
 			parse_string(&format, p);
 	}
 	write(1, p->print, p->print_num);
+	ft_memdel((void**)&p->print);
+	ft_memdel((void**)&p);
 	return (0);
 }
 
 
 int		main()
 {
-	return (ft_printf("wqerqwrqwerqwe", 1));
+	ft_printf("wqerqwrqwerqwe%# 0-+lld", 1);
+	getchar();
+	return (0);
 }
