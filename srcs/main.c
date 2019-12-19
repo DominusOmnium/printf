@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:53:15 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/19 23:54:32 by marvin           ###   ########.fr       */
+/*   Updated: 2019/12/19 23:56:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	parcing_format(const char **f, t_printf *p)
 	(*f)++;
 }
 
-void	check_flags(char *f, t_printf *p)
+void	check_flags(const char *f, t_printf *p)
 {
 	if (*f == '#')
 		p->flags.hashtag = true;
@@ -168,6 +168,6 @@ int		ft_printf(const char *format, ...)
 int		main(void)
 {
 	/*printf("**%12.5d**", 15);*/
-	ft_printf("%d\n", ft_printf("befor**% +-10.20lld**after**\n", 5));
+	ft_printf("%d\n", ft_printf("befor**% +-10.20lld**after\n", 5));
 	return (0);
 }
