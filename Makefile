@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 12:08:40 by dkathlee          #+#    #+#              #
-#    Updated: 2019/12/19 23:55:48 by marvin           ###   ########.fr        #
+#    Updated: 2019/12/20 00:13:51 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS =	main.c parse_args.c
 OBJS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 
 CC = gcc
-CFLAGS = -ggdb
+CFLAGS = -g
 
 FTDIR = libft/
 FTLIB = $(addprefix $(FTDIR), libft.a)

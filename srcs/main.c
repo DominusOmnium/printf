@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:53:15 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/19 23:56:56 by marvin           ###   ########.fr       */
+/*   Updated: 2019/12/24 09:09:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,88 @@ void	check_flags_and_specs(const char **f, t_printf *p)
 	while (!is_type(**f) && **f)
 	{
 		check_flags(*f, p);
-		while (ft_isdigit(**f))
-		{
-			p->width = (p->width == -1) ? ft_atoi(*f) : p->width;
-			(*f)++;
-			if (**f == '.')
+		if (**f != '0')
+			while (ft_isdigit(**f))
 			{
+				p->width = (p->width == -1) ? ft_atoi(*f) : p->width;
 				(*f)++;
-				p->precision = ft_atoi(*f);
+				if (**f == '.')
+				{
+					(*f)++;
+					p->precision = ft_atoi(*f);
+				}
 			}
-		}
-		(*f)++;
+		else
+			(*f)++;
 	}
 	parcing_format(f, p);
+}
+
+void	set_hashtag(char **str, t_printf *p)
+{
+	char	*tmp;
+
+	if (**str == '-' || **str == '0')
+		return ;
+	tmp = ft_strnew(ft_strlen(*str) + 1);
+	*tmp = '+';
+	ft_strcpy(tmp + 1, *str);
+	ft_memdel((void**)str);
+	*str = tmp;
+}
+
+void	set_flags(char **str, t_printf *p)
+{
+	if (p->type == type_str || p->type == type_char)
+		return;
+	if (p->flags.plus && (p->type & (type_float | type_int | type_unsigned)) != 0)
+		set_hashtag(str, p);
+}
+
+void	set_precision(char **str, t_printf *p)
+{
+	char	*tmp;
+	int		cl;
+	char	zn;
+
+	cl = ft_strlen(*str);
+	if ((p->type & (type_char | type_percent | type_str)) != 0
+									|| cl >= p->precision)
+		return ;
+	zn = (**str == '-' || **str == '+') ? true : false;
+	tmp = ft_strnew(zn ? (p->precision + 1) : p->precision);
+	ft_memset(zn ? (tmp + 1) : tmp, '0', p->precision - cl);
+	if (zn)
+		tmp[0] = **str;
+	zn ? ft_strcpy(tmp + p->precision - cl + 1, *str + 1) :
+			ft_strcpy(tmp + p->precision - cl, *str);
+	ft_memdel((void**)str);
+	*str = tmp;
+}
+
+void	set_width(char **str, t_printf *p)
+{
+	char	*tmp;
+	int		cur_len;
+
+	cur_len = ft_strlen(*str);
+	if (cur_len >= p->width)
+		return ;
+	tmp = ft_strnew(p->width);
+	if (p->flags.minus)
+	{
+		tmp = ft_strcpy(tmp, *str);
+		ft_memset(tmp + cur_len,
+				(p->flags.zero && p->precision == -1) ? '0' : ' ', p->width - cur_len);
+	}
+	else
+	{
+		ft_memset(tmp,
+				(p->flags.zero && p->precision == -1) ? '0' : ' ', p->width - cur_len);
+		ft_strcpy(tmp + p->width - cur_len, *str);
+	}
+	ft_memdel((void**)str);
+	*str = tmp;
 }
 
 void	parse_percent(const char **format, t_printf *p)
@@ -113,7 +182,9 @@ void	parse_percent(const char **format, t_printf *p)
 	(*format)++;
 	check_flags_and_specs(format, p);
 	tmp = get_str_from_arg(format, p);
-	
+	set_flags(&tmp, p);
+	set_precision(&tmp, p);
+	set_width(&tmp, p);
 
 	
 	tmp1 = ft_strjoin(p->print, tmp);
@@ -146,28 +217,30 @@ void	parse_string(const char **format, t_printf *p)
 int		ft_printf(const char *format, ...)
 {
 	t_printf	*p;
+	int			print_num;
 
 	p = ft_memalloc(sizeof(t_printf));
 	va_start(p->args, format);
-	reset(p);
 	p->print_num = 0;
 	p->print = ft_strnew(0);
 	while (*format)
 	{
+		reset(p);
 		if (*format == '%')
 			parse_percent(&format, p);
 		else
 			parse_string(&format, p);
 	}
 	write(1, p->print, p->print_num);
-	ft_memdel((void**)&p->print);
+	ft_memdel((void**)&(p->print));
+	print_num = p->print_num;
 	ft_memdel((void**)&p);
-	return (p->print_num);
+	return (print_num);
 }
 
 int		main(void)
 {
-	/*printf("**%12.5d**", 15);*/
-	ft_printf("%d\n", ft_printf("befor**% +-10.20lld**after\n", 5));
+	/*printf("**%020p**", c);*/
+	ft_printf("%d\n", ft_printf("befor**%020.10d**after\n", -20));
 	return (0);
 }
