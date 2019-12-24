@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:57:14 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/17 11:51:29 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/24 10:24:19 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,13 @@ typedef struct	s_printf
 	va_list	args;
 }				t_printf;
 char			*get_str_from_arg(const char **format, t_printf *p);
+void			set_flags(char **str, t_printf *p);
+void			reset(t_printf *p);
+int				is_flag(char c);
+int				is_type(char c);
+void			parcing_format(const char **f, t_printf *p);
+void			check_flags(const char *f, t_printf *p);
+void			check_flags_and_specs(const char **f, t_printf *p);
+void			set_precision(char **str, t_printf *p);
+void			set_width(char **str, t_printf *p);
 #endif

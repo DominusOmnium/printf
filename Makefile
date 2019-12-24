@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 12:08:40 by dkathlee          #+#    #+#              #
-#    Updated: 2019/12/20 00:13:51 by marvin           ###   ########.fr        #
+#    Updated: 2019/12/24 10:24:27 by dkathlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCDIR = srcs/
 INCDIR = includes/
 OBJDIR = obj/
 
-SRCS =	main.c parse_args.c
+SRCS =	main.c parse_args.c flags.c utils.c percent.c
 
 OBJS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 
