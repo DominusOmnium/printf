@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 10:17:24 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/24 10:17:43 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/25 16:34:24 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	reset(t_printf *p)
 	p->precision = -1;
 	p->width = -1;
 	p->spec = sp_none;
+	p->type = type_none;
 }
 
 int		is_flag(char c)
@@ -27,10 +28,18 @@ int		is_flag(char c)
 	return (false);
 }
 
+int		is_spec(char c)
+{
+	if (c == 'h' || c == 'l' || c == 'L' || c == 'j' || c == 'z' || c == 't')
+		return (true);
+	return (false);
+}
+
 int		is_type(char c)
 {
 	if (c == 'd' || c == 'i' || c == 'u' || c == 'o' || c == 'x' || c == 'X'
-		|| c == 'f' || c == 'F' || c == 'c' || c == 's' || c == 'p' || c == '%')
+		|| c == 'f' || c == 'F' || c == 'c' || c == 's' || c == 'p' || c == '%'
+		|| c == 'U')
 		return (true);
 	return (false);
 }

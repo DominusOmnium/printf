@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 14:02:24 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/11/19 12:58:56 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/25 14:48:53 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char			*ft_strjoin2(char const *s1, char const *s2, const char *s3);
 char			*ft_strtrim(char const *s);
 int				ft_word_count(char const *s, char c);
 char			**ft_strsplit(char const *s, char c);
-char			*ft_itoa(int n);
+char			*ft_itoa(long long n);
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
 void			ft_putendl(char const *s);
@@ -142,4 +142,6 @@ void			ft_dlst_push_sort(t_dlist **dl, t_dlist *el,
 int				ft_dlst_index_of(t_dlist *dl, t_dlist *el);
 t_dlist			*ft_dlst_pop(t_dlist **dlst, t_dlist *el);
 int				get_next_line(const int fd, char **line);
+int				ft_strind(char *str, char c);
+char			*ft_itoa_base(unsigned long long nb, const char *base_str);
 #endif

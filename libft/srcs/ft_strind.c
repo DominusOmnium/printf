@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_strind.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/06 11:02:17 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/25 15:14:00 by dkathlee         ###   ########.fr       */
+/*   Created: 2019/12/25 10:47:50 by dkathlee          #+#    #+#             */
+/*   Updated: 2019/12/25 10:49:32 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa(long long n)
+int	ft_strind(char *str, char c)
 {
-	char			*tmp;
-	char			*res;
-	unsigned long long t;
-	
-	if (n >= 0)
-		res = ft_itoa_base(n, "0123456789");
-	else
+	int	ind;
+
+	ind = 0;
+	while (str[ind])
 	{
-		t = -n;
-		tmp = ft_itoa_base(t, "0123456789");
-		res = ft_strnew(ft_strlen(tmp) + 1);
-		res[0] = '-';
-		ft_strcpy(res + 1, tmp);
-		ft_memdel((void**)&tmp);
+		if (str[ind] == c)
+			return (ind);
+		ind++;
 	}
-	return (res);
+	return (-1);
 }

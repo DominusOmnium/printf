@@ -6,18 +6,17 @@
 #    By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 12:08:40 by dkathlee          #+#    #+#              #
-#    Updated: 2019/12/24 10:24:27 by dkathlee         ###   ########.fr        #
+#    Updated: 2019/12/25 11:49:38 by dkathlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = q
-NAME1 = libftprintf.a
+NAME = libftprintf.a
 
 SRCDIR = srcs/
 INCDIR = includes/
 OBJDIR = obj/
 
-SRCS =	main.c parse_args.c flags.c utils.c percent.c
+SRCS =	printf.c parse_args.c flags.c utils.c percent.c
 
 OBJS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 
@@ -29,7 +28,7 @@ FTLIB = $(addprefix $(FTDIR), libft.a)
 FTINC = -I $(FTDIR)includes
 FTLNK = -L $(FTDIR)
 
-all: obj $(FTLIB) $(NAME)
+all: obj $(NAME)
 
 obj:
 	mkdir -p $(OBJDIR)
@@ -40,8 +39,13 @@ $(OBJDIR)%.o:$(SRCDIR)%.c
 $(FTLIB):
 	make -C $(FTDIR)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(FTLIB) $(FTLNK) $(FTINC) -o $(NAME)
+$(NAME): $(FTLIB) $(OBJS)
+	cp libft/libft.a ./$(NAME)
+	ar rc $(NAME) $(OBJS)
+	ranlib $(NAME)
+
+comp: all
+	gcc -g -o q main.c libftprintf.a
 
 clean:
 	rm -rf $(OBJDIR)
