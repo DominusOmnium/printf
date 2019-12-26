@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 14:02:24 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/25 14:48:53 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/26 10:11:22 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 # include <stdlib.h>
 # include <string.h>
 # ifndef INT_MIN
-# define INT_MIN		-2147483648
+#  define INT_MIN		-2147483648
 # endif
 # ifndef INT_MAX
-# define INT_MAX		2147483647
+#  define INT_MAX		2147483647
 # endif
 # define ABS(Value)		(((Value) < 0) ? (-Value) : (Value))
 # define MIN(A, B)		(((A) > (B)) ? (B) : (A))
 # define MAX(A, B)		(((A) > (B)) ? (A) : (B))
-# ifndef true
-# define true 1
+# ifndef TRUE
+#  define TRUE 1
 # endif
-# ifndef false
-# define false 0
+# ifndef FALSE
+#  define FALSE 0
 # endif
 
 typedef unsigned char	t_uint8;

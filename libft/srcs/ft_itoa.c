@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 11:02:17 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/25 15:14:00 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/26 10:09:12 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*ft_itoa(long long n)
 {
-	char			*tmp;
-	char			*res;
-	unsigned long long t;
-	
+	char				*tmp;
+	char				*res;
+	unsigned long long	t;
+
 	if (n >= 0)
 		res = ft_itoa_base(n, "0123456789");
 	else
