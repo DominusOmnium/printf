@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 10:22:41 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/25 18:38:00 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/26 14:38:23 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ void	parcing_format(const char **f, t_printf *p)
 void	check_flags(const char *f, t_printf *p)
 {
 	if (*f == '#')
-		p->flags.hashtag = true;
+		p->flags.hashtag = TRUE;
 	else if (*f == '-')
-		p->flags.minus = true;
+		p->flags.minus = TRUE;
 	else if (*f == '+')
-		p->flags.plus = true;
+		p->flags.plus = TRUE;
 	else if (*f == ' ')
-		p->flags.space = true;
+		p->flags.space = TRUE;
 	else if (*f == '0')
-		p->flags.zero = true;
+		p->flags.zero = TRUE;
 	if (*f == 'h' && *(f + 1) == 'h' && p->spec < sp_hh)
 		p->spec = sp_hh;
 	else if (*f == 'h' && *(f + 1) != 'h' && *(f - 1) != 'h' && p->spec < sp_h)
@@ -105,11 +105,18 @@ void	set_precision(char **str, t_printf *p)
 		return ;
 	cl = ft_strlen(*str);
 	cl = (cl == 0) ? 1 : cl;
-	zn = (**str == '-' || **str == '+') ? true : false;
-	if (p->type == type_str && cl > p->precision)
+	zn = (**str == '-') ? TRUE : FALSE;
+	if (p->type == type_str && cl > p->precision && p->precision != -1)
 	{
 		tmp = ft_strnew(p->precision);
 		ft_strncpy(tmp, *str, p->precision);
+	}
+	else if (p->precision > cl && p->type == type_pointer)
+	{
+		tmp = ft_strnew(p->precision + 2);
+		ft_strncpy(tmp, *str, 2);
+		ft_memset(tmp + 2, '0', p->precision - cl + 2);
+		ft_strncpy(tmp + p->precision + 4 - cl, *str + 2, cl - 2);
 	}
 	else if (p->precision > cl - (zn ? 1 : 0) && p->type != type_str)
 	{
@@ -120,8 +127,7 @@ void	set_precision(char **str, t_printf *p)
 		zn ? ft_strcpy(tmp + p->precision - cl + 2, *str + 1) :
 				ft_strcpy(tmp + p->precision - cl, *str);
 	}
-	else if (p->precision == 0 && cl == 1 && **str == '0' &&
-					!(p->type == type_octal && p->flags.hashtag))
+	else if (p->precision == 0 && **str == '0' && p->type != type_pointer)
 		tmp = ft_strnew(0);
 	else
 		return ;
@@ -138,17 +144,24 @@ int		set_width(char **str, t_printf *p)
 	cur_len = (cur_len == 0 && p->type == type_char) ? 1 : cur_len;
 	if (cur_len >= p->width)
 		return (cur_len);
-	tmp = ft_strnew(p->width);
 	if (p->flags.minus)
 		set_minus(str, cur_len, p);
 	else
 	{
-		if ((**str == '+' || **str == '-') && p->flags.zero &&
-			(p->type & (type_float | type_int)) && p->precision == -1)
+		tmp = ft_strnew(p->width);
+		if ((**str == '+' || **str == '-' || p->flags.space) && p->flags.zero &&
+			p->precision == -1)
 		{
 			tmp[0] = **str;
 			ft_memset(tmp + 1, '0', p->width - cur_len);
 			ft_strcpy(tmp + p->width - cur_len + 1, *str + 1);
+		}
+		else if (**str == '0' && ft_tolower(*(*str + 1)) == 'x' && p->flags.zero &&
+			(p->type & (type_hex_high | type_hex_low)) && p->precision == -1)
+		{
+			ft_strncpy(tmp, *str, 2);
+			ft_memset(tmp + 2, '0', p->width - cur_len);
+			ft_strcpy(tmp + p->width - cur_len + 2, *str + 2);
 		}
 		else
 		{

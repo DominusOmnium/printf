@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 10:17:24 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/25 16:34:24 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/26 12:06:08 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	reset(t_printf *p)
 {
-	p->flags = (t_flags){false, false, false, false, false};
+	p->flags = (t_flags){FALSE, FALSE, FALSE, FALSE, FALSE};
 	p->precision = -1;
 	p->width = -1;
 	p->spec = sp_none;
@@ -24,15 +24,15 @@ void	reset(t_printf *p)
 int		is_flag(char c)
 {
 	if (c == '+' || c == '-' || c == ' ' || c == '0' || c == '#')
-		return (true);
-	return (false);
+		return (TRUE);
+	return (FALSE);
 }
 
 int		is_spec(char c)
 {
 	if (c == 'h' || c == 'l' || c == 'L' || c == 'j' || c == 'z' || c == 't')
-		return (true);
-	return (false);
+		return (TRUE);
+	return (FALSE);
 }
 
 int		is_type(char c)
@@ -40,6 +40,16 @@ int		is_type(char c)
 	if (c == 'd' || c == 'i' || c == 'u' || c == 'o' || c == 'x' || c == 'X'
 		|| c == 'f' || c == 'F' || c == 'c' || c == 's' || c == 'p' || c == '%'
 		|| c == 'U')
-		return (true);
-	return (false);
+		return (TRUE);
+	return (FALSE);
+}
+
+int		check_str(char *str, char c)
+{
+	if (!*str)
+		return (FALSE);
+	while (*str)
+		if (*str++ != c)
+			return (FALSE);
+	return (TRUE);
 }

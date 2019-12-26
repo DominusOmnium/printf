@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 10:51:29 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/25 17:05:57 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/26 13:53:06 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,13 @@ static char					*pointer_to_str(t_printf *p)
 	char		*res;
 	long long	pnt;
 
-	tmp = ft_itoa_base(va_arg(p->args, long long), "0123456789abcdef");
-	res = ft_strnew(ft_strlen(tmp) + 2);
+	pnt = va_arg(p->args, long long);
+	tmp = ft_itoa_base(pnt, "0123456789abcdef");
+	res = ft_strnew((!pnt && !p->precision ? 0 : ft_strlen(tmp)) + 2);
 	res[0] = '0';
 	res[1] = 'x';
-	ft_strcpy(res + 2, tmp);
+	if (!(!pnt && !p->precision))
+		ft_strcpy(res + 2, tmp);
 	ft_memdel((void**)&tmp);
 	return (res);
 }
@@ -97,8 +99,7 @@ char						*get_str_from_arg(const char **format, t_printf *p)
 	else if (p->type == type_str)
 	{
 		tmp = va_arg(p->args, char*);
-		res = tmp ? ft_strcpy(ft_strnew(ft_strlen(tmp)), tmp) :
-						ft_strcpy(ft_strnew(6), "(null)");
+		res = tmp ? ft_strdup(tmp) : ft_strcpy(ft_strnew(6), "(null)");
 	}
 	/*else if (p->type == type_float)
 		res = double_to_str(get_float(p));*/
@@ -108,10 +109,9 @@ char						*get_str_from_arg(const char **format, t_printf *p)
 		res = ft_itoa_base(get_uint(p), "0123456789");
 	else if (p->type == type_pointer)
 		res = pointer_to_str(p);
-	else if (p->type == type_hex_high)
-		res = ft_itoa_base(get_uint(p), "0123456789ABCDEF");
-	else if (p->type == type_hex_low)
-		res = ft_itoa_base(get_uint(p), "0123456789abcdef");
+	else if (p->type & (type_hex_high | type_hex_low))
+		res = ft_itoa_base(get_uint(p), p->type & type_hex_low ?
+									"0123456789abcdef" : "0123456789ABCDEF");
 	else if (p->type == type_octal)
 		res = ft_itoa_base(get_uint(p), "01234567");
 	return (res);

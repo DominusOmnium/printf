@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 10:13:33 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/25 18:15:27 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/26 12:22:05 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	set_plus(char **str, t_printf *p)
 	if (**str == '-')
 		return ;
 	tmp = ft_strnew(ft_strlen(*str) + 1);
-	*tmp = '+';
+	*tmp = p->flags.plus ? '+' : ' ';
 	ft_strcpy(tmp + 1, *str);
 	ft_memdel((void**)str);
 	*str = tmp;
@@ -31,7 +31,7 @@ static void	set_hashtag(char **str, t_printf *p)
 	int		cl;
 
 	cl = ft_strlen(*str);
-	if (cl == 1 && **str == '0')
+	if (check_str(*str, '0') || (cl == 0 && p->type != type_octal) || (**str == '0' && p->type == type_octal))
 		return ;
 	tmp = ft_strnew((p->type == type_octal) ? (cl + 1) : (cl + 2));
 	tmp[0] = '0';
@@ -45,7 +45,8 @@ void		set_flags(char **str, t_printf *p)
 {
 	if (p->type == type_str || p->type == type_char)
 		return ;
-	if (p->flags.plus && (p->type & (type_float | type_int)) != 0)
+	if ((p->flags.plus || p->flags.space) &&
+						(p->type & (type_float | type_int)) != 0)
 		set_plus(str, p);
 	if (p->flags.hashtag &&
 			(p->type & (type_hex_high | type_hex_low | type_octal)) != 0)
@@ -58,7 +59,7 @@ void		set_minus(char **str, int cl, t_printf *p)
 
 	tmp = ft_strnew(p->width);
 	tmp = ft_strcpy(tmp, *str);
-		ft_memset(tmp + cl, /*(p->flags.zero) ? '0' : */' ', p->width - cl);
+		ft_memset(tmp + cl, ' ', p->width - cl);
 	ft_memdel((void**)str);
 	*str = tmp;
 }

@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:57:14 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/25 18:06:11 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/26 11:44:33 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void			reset(t_printf *p);
 int				is_flag(char c);
 int				is_spec(char c);
 int				is_type(char c);
+int				check_str(char *str, char c);
 void			parcing_format(const char **f, t_printf *p);
 void			check_flags(const char *f, t_printf *p);
 void			check_flags_and_specs(const char **f, t_printf *p);
