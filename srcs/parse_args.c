@@ -6,20 +6,20 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 10:51:29 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/26 13:53:06 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/27 19:57:05 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static double				get_float(t_printf *p)
+static t_double				get_float(t_printf *p)
 {
-	double	res;
+	t_double	res;
 
 	if (p->spec == sp_L)
-		res = va_arg(p->args, long double);
+		res.f = (double)va_arg(p->args, long double);
 	else
-		res = va_arg(p->args, double);
+		res.f = va_arg(p->args, double);
 	return (res);
 }
 
@@ -101,8 +101,8 @@ char						*get_str_from_arg(const char **format, t_printf *p)
 		tmp = va_arg(p->args, char*);
 		res = tmp ? ft_strdup(tmp) : ft_strcpy(ft_strnew(6), "(null)");
 	}
-	/*else if (p->type == type_float)
-		res = double_to_str(get_float(p));*/
+	else if (p->type == type_float)
+		res = float_to_str(get_float(p), p);
 	else if (p->type == type_int)
 		res = ft_itoa(get_int(p));
 	else if (p->type == type_unsigned)

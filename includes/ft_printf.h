@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:57:14 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/26 11:44:33 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/27 19:56:27 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,36 @@ typedef enum
 	type_hex_low = 16, type_hex_high = 32, type_float = 64, type_pointer = 128,
 	type_percent = 256, type_str = 512
 }	t_type;
+typedef union
+{
+	float	f;
+	struct 
+	{
+    unsigned int	mantisa : 23;
+    unsigned int	exponent : 8;
+    unsigned int	sign : 1;
+	}		parts;
+}				t_float;
+typedef union
+{
+	double	f;
+	struct 
+	{
+		unsigned long int	mantisa : 52;
+		unsigned int		exponent : 11;
+		unsigned int		sign : 1;
+	}			parts;
+}				t_double;
+typedef union
+{
+	long double	f;
+	struct 
+	{
+		__int128_t		mantisa : 112;
+		unsigned int	exponent : 15;
+		unsigned int	sign : 1;
+	}			parts;
+}				t_ldouble;
 typedef struct	s_flags
 {
 	t_uint8	minus;
@@ -58,4 +88,5 @@ void			check_flags_and_specs(const char **f, t_printf *p);
 void			set_precision(char **str, t_printf *p);
 int				set_width(char **str, t_printf *p);
 void			set_minus(char **str, int cl, t_printf *p);
+char			*float_to_str(t_double f, t_printf *p);
 #endif
