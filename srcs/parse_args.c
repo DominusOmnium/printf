@@ -6,11 +6,12 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 10:51:29 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/27 19:57:05 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/30 20:14:03 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <wchar.h>
 
 static t_double				get_float(t_printf *p)
 {
@@ -86,16 +87,59 @@ static char					*pointer_to_str(t_printf *p)
 	return (res);
 }
 
+wint_t						get_char(t_printf *p)
+{
+	wint_t	res;
+
+	if (p->type == type_percent)
+		return ('%');
+	if (p->spec == sp_l)
+		res = (wint_t)va_arg(p->args, int);
+	else
+		res = (char)va_arg(p->args, int);
+	return (res);
+}
+
+char						*char_to_str(wint_t c, t_printf *p)
+{
+	char	*res;
+
+	if (c <= 127 && c >= 0)
+	{
+		res = ft_strnew(1);
+		res[0] = c;
+	}
+	else if (c <= 2047)
+	{
+		res = ft_strnew(2);
+		res[0] = (c >> 6) + 192;
+		res[1] = ((c & 63) + 128);
+	}
+	else if (c <= 65535)
+	{
+		res = ft_strnew(3);
+		res[0] = (c >> 12) + 224;
+		res[1] = ((c >> 6) & 63) + 128;
+		res[2] = ((c & 63) + 128);
+	}
+	else if (65535)
+	{
+		res = ft_strnew(4);
+		res[0] = (c >> 18) + 240;
+		res[1] = ((c >> 12) & 63) + 128;
+		res[2] = ((c >> 6) & 63) + 128;
+		res[3] = ((c & 63) + 128);
+	}
+	return (res);
+}
+
 char						*get_str_from_arg(const char **format, t_printf *p)
 {
 	char	*res;
 	char	*tmp;
 
 	if (p->type & (type_char | type_percent))
-	{
-		res = ft_strnew(1);
-		res[0] = (p->type == type_char) ? (char)va_arg(p->args, int) : '%';
-	}
+		res = char_to_str(get_char(p), p);
 	else if (p->type == type_str)
 	{
 		tmp = va_arg(p->args, char*);

@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:20:21 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/30 14:22:04 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/30 17:29:26 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*long_mul(char *nb1, char *nb2)
 	return (res);
 }
 
-char	*get_pow2(int pow)
+char	*long_pow(char *nbr, int pow)
 {
 	
 }
