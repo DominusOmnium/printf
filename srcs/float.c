@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:20:21 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/27 21:11:46 by dkathlee         ###   ########.fr       */
+/*   Updated: 2019/12/30 14:22:04 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,26 @@ char	*long_mul(char *nb1, char *nb2)
 	nb2_len = ft_strlen(nb2);
 	res = ft_strnew(nb1_len + nb2_len);
 	ft_memset(res, '0', nb1_len + nb2_len);
-	i = 0;
+	i = nb1_len - 1;
 	carry = 0;
-	while (i < nb1_len)
+	while (i >= 0)
 	{
-		j = 0;
-		while (j < nb2_len || carry)
+		j = nb2_len - 1;
+		while (j >= 0 || carry)
 		{
-			long long tmp = (res[i + j] - '0') + (nb1[i] - '0') * (j < nb2_len ? (nb2[j] - '0') : 0) + carry;
-			res[i + j] = tmp % 10 + '0';
+			long long tmp = (res[i + j + 1] - '0') + (nb1[i] - '0') * (j >= 0 ? (nb2[j] - '0') : 0) + carry;
+			res[i + j + 1] = tmp % 10 + '0';
 			carry = tmp / 10;
-			j++;
+			j--;
 		}
-		i++;
+		i--;
 	}
 	return (res);
+}
+
+char	*get_pow2(int pow)
+{
+	
 }
 
 /*char	*div_long_by_simple(char *divided, int divider)
@@ -80,11 +85,13 @@ char	*float_to_str(t_double f, t_printf *p)
 	char	*res;
 	char	*tmp;
 	char	*mantisa;
-	char	*exponent;
 
 	mantisa = ft_itoa_base(f.parts.mantisa, "0123456789");
-	exponent = ft_itoa_base(f.parts.exponent, "0123456789");
-	tmp = long_mul("15", "11");
+	tmp = long_mul(mantisa, "2220446049250313080847263336181640625");
+	//char *tmp2 = ft_strnew(ft_strlen(tmp) + 1);
+	tmp[0] = '1';
+	//ft_strcpy(tmp2 + 1, tmp);
+	tmp = long_mul(tmp, "8");
 	calc_float_len(f, p);
 	res = ft_strdup("float");
 	return (res);
