@@ -1,2 +1,1 @@
-for i in range(53):
-	print (5**i)
+print (5**52)
