@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 11:49:26 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/26 12:42:49 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/01/14 13:44:22 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		ft_printf(const char *format, ...)
 		else
 			parse_string(&format, p);
 	}
+	va_end(p->args);
 	write(1, p->print, p->print_num);
 	ft_memdel((void**)&(p->print));
 	print_num = p->print_num;

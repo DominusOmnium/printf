@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 10:51:29 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/30 20:14:03 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/01/27 12:47:12 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,42 +87,42 @@ static char					*pointer_to_str(t_printf *p)
 	return (res);
 }
 
-wint_t						get_char(t_printf *p)
+long						get_char(t_printf *p)
 {
-	wint_t	res;
+	long	res;
 
 	if (p->type == type_percent)
 		return ('%');
 	if (p->spec == sp_l)
-		res = (wint_t)va_arg(p->args, int);
+		res = (unsigned int)va_arg(p->args, unsigned int);
 	else
 		res = (char)va_arg(p->args, int);
 	return (res);
 }
 
-char						*char_to_str(wint_t c, t_printf *p)
+char						*char_to_str(int c, t_printf *p)
 {
 	char	*res;
 
-	if (c <= 127 && c >= 0)
+	if (c <= 127)
 	{
 		res = ft_strnew(1);
 		res[0] = c;
 	}
-	else if (c <= 2047)
+	if (c > 127 && c <= 2047)
 	{
 		res = ft_strnew(2);
 		res[0] = (c >> 6) + 192;
 		res[1] = ((c & 63) + 128);
 	}
-	else if (c <= 65535)
+	if (c > 2047 && c <= 65535)
 	{
 		res = ft_strnew(3);
 		res[0] = (c >> 12) + 224;
 		res[1] = ((c >> 6) & 63) + 128;
 		res[2] = ((c & 63) + 128);
 	}
-	else if (65535)
+	if (c >= 65536)
 	{
 		res = ft_strnew(4);
 		res[0] = (c >> 18) + 240;

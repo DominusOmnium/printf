@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 10:22:41 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/26 14:38:23 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/01/14 09:29:05 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	set_precision(char **str, t_printf *p)
 	int		cl;
 	char	zn;
 
-	if ((p->type & (type_char | type_percent)) || p->precision == -1)
+	if ((p->type & (type_char | type_percent | type_float)) || p->precision == -1)
 		return ;
 	cl = ft_strlen(*str);
 	cl = (cl == 0) ? 1 : cl;

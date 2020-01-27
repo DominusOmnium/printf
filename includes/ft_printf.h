@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:57:14 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/27 19:56:27 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/01/27 11:57:46 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,6 @@ typedef enum
 }	t_type;
 typedef union
 {
-	float	f;
-	struct 
-	{
-    unsigned int	mantisa : 23;
-    unsigned int	exponent : 8;
-    unsigned int	sign : 1;
-	}		parts;
-}				t_float;
-typedef union
-{
 	double	f;
 	struct 
 	{
@@ -51,7 +41,7 @@ typedef union
 	long double	f;
 	struct 
 	{
-		__int128_t		mantisa : 112;
+		__int128_t		mantisa : 64;
 		unsigned int	exponent : 15;
 		unsigned int	sign : 1;
 	}			parts;
@@ -89,4 +79,6 @@ void			set_precision(char **str, t_printf *p);
 int				set_width(char **str, t_printf *p);
 void			set_minus(char **str, int cl, t_printf *p);
 char			*float_to_str(t_double f, t_printf *p);
+char			*long_mul(char *nb1, char *nb2);
+char			*long_pow(char *nbr, int pow);
 #endif
