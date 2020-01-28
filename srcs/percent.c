@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 10:22:41 by dkathlee          #+#    #+#             */
-/*   Updated: 2020/01/14 09:29:05 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/01/28 13:02:49 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	parcing_format(const char **f, t_printf *p)
 {
-	if (**f == 'd' || **f == 'i')
+	if (**f == 'd' || **f == 'i' || **f == 'D' || **f == 'I')
 		p->type = type_int;
 	else if (**f == 'u' || **f == 'U')
 		p->type = type_unsigned;
-	else if (**f == 'o')
+	else if (**f == 'o' || **f == 'O')
 		p->type = type_octal;
 	else if (**f == 'x')
 		p->type = type_hex_low;
@@ -26,16 +26,21 @@ void	parcing_format(const char **f, t_printf *p)
 		p->type = type_hex_high;
 	else if (**f == 'f')
 		p->type = type_float;
-	else if (**f == 'c')
+	else if (**f == 'c' || **f == 'C')
 		p->type = type_char;
-	else if (**f == 's')
+	else if (**f == 's' || **f == 'S')
 		p->type = type_str;
 	else if (**f == 'p')
 		p->type = type_pointer;
 	else if (**f == '%')
 		p->type = type_percent;
 	if (ft_isupper(**f) && **f != 'X')
-		p->spec = (**f == 'F') ? sp_L : sp_ll;
+	{
+		if (**f == 'C' || **f == 'S')
+			p->spec = sp_l;
+		else
+			p->spec = (**f == 'F') ? sp_L : sp_ll;
+	}
 	if (p->type != type_none)
 		(*f)++;
 }
@@ -150,7 +155,7 @@ int		set_width(char **str, t_printf *p)
 	{
 		tmp = ft_strnew(p->width);
 		if ((**str == '+' || **str == '-' || p->flags.space) && p->flags.zero &&
-			p->precision == -1)
+			p->precision == -1 && (p->type & (type_float | type_int | type_unsigned)))
 		{
 			tmp[0] = **str;
 			ft_memset(tmp + 1, '0', p->width - cur_len);

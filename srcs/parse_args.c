@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 10:51:29 by dkathlee          #+#    #+#             */
-/*   Updated: 2020/01/27 12:47:12 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/01/28 13:25:14 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,17 @@ static t_double				get_float(t_printf *p)
 
 	if (p->spec == sp_L)
 		res.f = (double)va_arg(p->args, long double);
+	else
+		res.f = va_arg(p->args, double);
+	return (res);
+}
+
+static t_ldouble				get_lfloat(t_printf *p)
+{
+	t_ldouble	res;
+
+	if (p->spec == sp_L)
+		res.f = va_arg(p->args, long double);
 	else
 		res.f = va_arg(p->args, double);
 	return (res);
@@ -100,7 +111,7 @@ long						get_char(t_printf *p)
 	return (res);
 }
 
-char						*char_to_str(int c, t_printf *p)
+char						*char_to_str(int c)
 {
 	char	*res;
 
@@ -133,20 +144,49 @@ char						*char_to_str(int c, t_printf *p)
 	return (res);
 }
 
-char						*get_str_from_arg(const char **format, t_printf *p)
+char						*str_w(wchar_t *str, t_printf *p)
 {
 	char	*res;
 	char	*tmp;
+	char	*tmp1;
+
+	res = ft_memalloc(1);
+	while (*str != '\0')
+	{
+		tmp = char_to_str((int)*str);
+		if (((int)(ft_strlen(res) + ft_strlen(tmp)) > p->precision)
+												&& p->precision != -1)
+				break ;
+		tmp1 = ft_strjoin(res, tmp);
+		ft_memdel((void**)&res);
+		res = tmp1;
+		ft_memdel((void**)&tmp);
+		str++;
+	}
+	return (res);
+}
+
+char						*get_str_from_arg(const char **format, t_printf *p)
+{
+	char	*res;
+	void	*tmp;
 
 	if (p->type & (type_char | type_percent))
-		res = char_to_str(get_char(p), p);
-	else if (p->type == type_str)
+		res = char_to_str(get_char(p));
+	else if (p->type == type_str && p->spec == sp_l)
+	{
+		tmp = va_arg(p->args, wchar_t*);
+		res = tmp ? str_w(tmp, p) : ft_strcpy(ft_strnew(6), "(null)");
+	}
+	else if (p->type == type_str && p->spec != sp_l)
 	{
 		tmp = va_arg(p->args, char*);
 		res = tmp ? ft_strdup(tmp) : ft_strcpy(ft_strnew(6), "(null)");
 	}
-	else if (p->type == type_float)
-		res = float_to_str(get_float(p), p);
+	else if (p->type == type_float && p->spec != sp_L)
+		res = float_to_str((t_double){.f = va_arg(p->args, double)}, p);
+	else if (p->type == type_float && p->spec == sp_L)
+		res = lfloat_to_str((t_ldouble){.f = va_arg(p->args, long double)}, p);
 	else if (p->type == type_int)
 		res = ft_itoa(get_int(p));
 	else if (p->type == type_unsigned)

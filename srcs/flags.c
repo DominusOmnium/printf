@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 10:13:33 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/12/26 12:22:05 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:53:13 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static void	set_hashtag(char **str, t_printf *p)
 	int		cl;
 
 	cl = ft_strlen(*str);
-	if (check_str(*str, '0') || (cl == 0 && p->type != type_octal) || (**str == '0' && p->type == type_octal))
+	if (check_str(*str, '0') || (cl == 0 && p->type != type_octal)
+							|| (**str == '0' && p->type == type_octal))
 		return ;
 	tmp = ft_strnew((p->type == type_octal) ? (cl + 1) : (cl + 2));
 	tmp[0] = '0';
@@ -59,7 +60,7 @@ void		set_minus(char **str, int cl, t_printf *p)
 
 	tmp = ft_strnew(p->width);
 	tmp = ft_strcpy(tmp, *str);
-		ft_memset(tmp + cl, ' ', p->width - cl);
+	ft_memset(tmp + cl, ' ', p->width - cl);
 	ft_memdel((void**)str);
 	*str = tmp;
 }

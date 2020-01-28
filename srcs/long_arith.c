@@ -6,13 +6,13 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 09:15:51 by dkathlee          #+#    #+#             */
-/*   Updated: 2020/01/14 15:18:31 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:54:12 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*long_pow(char *nbr, int pow)
+char		*long_pow(char *nbr, int pow)
 {
 	char	*res;
 	char	*tmp;
@@ -46,7 +46,8 @@ static void	long_mul_cycle(char *nb1, char *nb2, char *res)
 		carry = 0;
 		while (j >= 0 || carry)
 		{
-			tmp = (res[i + j + 1] - '0') + (nb1[i] - '0') * (j >= 0 ? (nb2[j] - '0') : 0) + carry;
+			tmp = (res[i + j + 1] - '0') + (nb1[i] - '0') *
+								(j >= 0 ? (nb2[j] - '0') : 0) + carry;
 			res[i + j + 1] = tmp % 10 + '0';
 			carry = tmp / 10;
 			j--;
@@ -68,7 +69,7 @@ static char	*remove_leading_zeros(char **num)
 	return (res);
 }
 
-char	*long_mul(char *nb1, char *nb2)
+char		*long_mul(char *nb1, char *nb2)
 {
 	char	*res;
 	int		tmp;

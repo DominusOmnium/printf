@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:57:14 by marvin            #+#    #+#             */
-/*   Updated: 2020/01/27 11:57:46 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:51:53 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,57 +28,59 @@ typedef enum
 }	t_type;
 typedef union
 {
-	double	f;
-	struct 
+	double				f;
+	struct
 	{
-		unsigned long int	mantisa : 52;
-		unsigned int		exponent : 11;
-		unsigned int		sign : 1;
-	}			parts;
-}				t_double;
+		unsigned long	mantisa : 52;
+		unsigned int	exponent : 11;
+		unsigned int	sign : 1;
+	}					parts;
+}						t_double;
 typedef union
 {
-	long double	f;
-	struct 
+	long double			f;
+	struct
 	{
-		__int128_t		mantisa : 64;
+		unsigned long	mantisa : 63;
+		char			q : 1;
 		unsigned int	exponent : 15;
 		unsigned int	sign : 1;
-	}			parts;
-}				t_ldouble;
-typedef struct	s_flags
+	}					parts;
+}						t_ldouble;
+typedef struct			s_flags
 {
-	t_uint8	minus;
-	t_uint8	plus;
-	t_uint8	space;
-	t_uint8	hashtag;
-	t_uint8	zero;
-}				t_flags;
-typedef struct	s_printf
+	t_uint8				minus;
+	t_uint8				plus;
+	t_uint8				space;
+	t_uint8				hashtag;
+	t_uint8				zero;
+}						t_flags;
+typedef struct			s_printf
 {
-	int		print_num;
-	char	*print;
-	t_flags	flags;
-	t_spec	spec;
-	t_type	type;
-	int		width;
-	int		precision;
-	va_list	args;
-}				t_printf;
-char			*get_str_from_arg(const char **format, t_printf *p);
-void			set_flags(char **str, t_printf *p);
-void			reset(t_printf *p);
-int				is_flag(char c);
-int				is_spec(char c);
-int				is_type(char c);
-int				check_str(char *str, char c);
-void			parcing_format(const char **f, t_printf *p);
-void			check_flags(const char *f, t_printf *p);
-void			check_flags_and_specs(const char **f, t_printf *p);
-void			set_precision(char **str, t_printf *p);
-int				set_width(char **str, t_printf *p);
-void			set_minus(char **str, int cl, t_printf *p);
-char			*float_to_str(t_double f, t_printf *p);
-char			*long_mul(char *nb1, char *nb2);
-char			*long_pow(char *nbr, int pow);
+	int					print_num;
+	char				*print;
+	t_flags				flags;
+	t_spec				spec;
+	t_type				type;
+	int					width;
+	int					precision;
+	va_list				args;
+}						t_printf;
+char					*get_str_from_arg(const char **format, t_printf *p);
+void					set_flags(char **str, t_printf *p);
+void					reset(t_printf *p);
+int						is_flag(char c);
+int						is_spec(char c);
+int						is_type(char c);
+int						check_str(char *str, char c);
+void					parcing_format(const char **f, t_printf *p);
+void					check_flags(const char *f, t_printf *p);
+void					check_flags_and_specs(const char **f, t_printf *p);
+void					set_precision(char **str, t_printf *p);
+int						set_width(char **str, t_printf *p);
+void					set_minus(char **str, int cl, t_printf *p);
+char					*float_to_str(t_double f, t_printf *p);
+char					*lfloat_to_str(t_ldouble f, t_printf *p);
+char					*long_mul(char *nb1, char *nb2);
+char					*long_pow(char *nbr, int pow);
 #endif
