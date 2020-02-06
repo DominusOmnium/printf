@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:57:14 by marvin            #+#    #+#             */
-/*   Updated: 2020/01/28 16:51:53 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/02/06 16:06:55 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct			s_printf
 	int					precision;
 	va_list				args;
 }						t_printf;
-char					*get_str_from_arg(const char **format, t_printf *p);
+char					*get_str_from_arg(t_printf *p);
 void					set_flags(char **str, t_printf *p);
 void					reset(t_printf *p);
 int						is_flag(char c);
@@ -83,4 +83,12 @@ char					*float_to_str(t_double f, t_printf *p);
 char					*lfloat_to_str(t_ldouble f, t_printf *p);
 char					*long_mul(char *nb1, char *nb2);
 char					*long_pow(char *nbr, int pow);
+char					*insert_point(char *nbr, int len, int exp, t_printf *p);
+char					*insert_point_long(char *nbr, int len, int exp, t_printf *p);
+void					float_round(char **nbr, int len);
+t_double				get_float(t_printf *p);
+t_ldouble				get_lfloat(t_printf *p);
+long					get_char(t_printf *p);
+char					*char_to_str(int c);
+char					*str_w(wchar_t *str, t_printf *p);
 #endif

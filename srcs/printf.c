@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 11:49:26 by dkathlee          #+#    #+#             */
-/*   Updated: 2020/01/28 11:31:15 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/02/06 15:33:07 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parse_percent(const char **format, t_printf *p)
 	check_flags_and_specs(format, p);
 	if (p->type == type_none)
 		return ;
-	tmp = get_str_from_arg(format, p);
+	tmp = get_str_from_arg(p);
 	set_precision(&tmp, p);
 	set_flags(&tmp, p);
 	pr = set_width(&tmp, p);
