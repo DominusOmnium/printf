@@ -15,6 +15,9 @@
 # include <stdarg.h>
 # include <stddef.h>
 # include "libft.h"
+# ifdef _WIN32
+#  include <stdint.h>
+# endif
 
 typedef enum
 {
@@ -28,43 +31,43 @@ typedef enum
 }	t_type;
 typedef union
 {
-	double				f;
+	double					f;
 	struct
 	{
-		unsigned long	mantisa : 52;
-		unsigned int	exponent : 11;
-		unsigned int	sign : 1;
-	}					parts;
+		unsigned long long	mantisa : 52;
+		unsigned int		exponent : 11;
+		unsigned int		sign : 1;
+	}						parts;
 }						t_double;
 typedef union
 {
-	long double			f;
+	long double				f;
 	struct
 	{
-		unsigned long	mantisa : 63;
-		char			q : 1;
-		unsigned int	exponent : 15;
-		unsigned int	sign : 1;
-	}					parts;
+		unsigned long long	mantisa : 63;
+		char				q : 1;
+		unsigned int		exponent : 15;
+		unsigned int		sign : 1;
+	}						parts;
 }						t_ldouble;
 typedef struct			s_flags
 {
-	t_uint8				minus;
-	t_uint8				plus;
-	t_uint8				space;
-	t_uint8				hashtag;
-	t_uint8				zero;
+	t_uint8					minus;
+	t_uint8					plus;
+	t_uint8					space;
+	t_uint8					hashtag;
+	t_uint8					zero;
 }						t_flags;
 typedef struct			s_printf
 {
-	int					print_num;
-	char				*print;
-	t_flags				flags;
-	t_spec				spec;
-	t_type				type;
-	int					width;
-	int					precision;
-	va_list				args;
+	int						print_num;
+	char					*print;
+	t_flags					flags;
+	t_spec					spec;
+	t_type					type;
+	int						width;
+	int						precision;
+	va_list					args;
 }						t_printf;
 char					*get_str_from_arg(t_printf *p);
 void					set_flags(char **str, t_printf *p);
