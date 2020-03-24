@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printf.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 11:49:26 by dkathlee          #+#    #+#             */
-/*   Updated: 2020/02/06 15:33:07 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/03/24 16:42:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	parse_percent(const char **format, t_printf *p)
 {
 	char	*tmp;
-	char	*tmp1;
 	int		pr;
 
 	(*format)++;
