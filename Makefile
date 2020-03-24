@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 12:08:40 by dkathlee          #+#    #+#              #
-#    Updated: 2020/03/24 16:44:00 by marvin           ###   ########.fr        #
+#    Updated: 2020/03/24 18:32:13 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ $(OBJDIR)%.o:$(SRCDIR)%.c
 	@$(CC) $(CFLAGS) -I $(INCDIR) -o $@ -c $<
 
 $(NAME): obj $(OBJS)
-	@ar rc $(NAME) $(OBJECTS)
+	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 	@echo "Libft compiled successfuly" 
 
