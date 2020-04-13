@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:57:14 by marvin            #+#    #+#             */
-/*   Updated: 2020/03/24 16:37:42 by marvin           ###   ########.fr       */
+/*   Updated: 2020/03/24 23:28:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdarg.h>
 # include <stddef.h>
 # include "libft.h"
+# include "get_next_line.h"
 # ifdef _WIN32
 #  include <stdint.h>
 # endif
@@ -94,4 +95,5 @@ t_ldouble				get_lfloat(t_printf *p);
 long					get_char(t_printf *p);
 char					*char_to_str(int c);
 char					*str_w(wchar_t *str, t_printf *p);
+int						ft_printf(const char *format, ...);
 #endif
