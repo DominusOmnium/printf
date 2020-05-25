@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:45:54 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/09/24 12:31:22 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/04/22 20:47:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int			read_to_buf(const int fd, t_list_fds *curr)
 			end = curr->buff;
 			if ((curr->buff = ft_strjoin(curr->buff, buf)) == NULL)
 				return (-1);
-			ft_memdel((void**)&end);
+			//ft_memdel((void**)&end);
 			if (ft_strrchr(buf, '\n') != NULL)
 				break ;
 		}
@@ -80,7 +80,7 @@ int					get_next_line(const int fd, char **line)
 		end = NULL;
 	else if ((end = ft_strdup(end + 1)) == NULL)
 		return (-1);
-	ft_memdel((void**)&(curr->buff));
+	//ft_memdel((void**)&(curr->buff));
 	curr->buff = end;
 	return (1);
 }

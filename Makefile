@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 12:08:40 by dkathlee          #+#    #+#              #
-#    Updated: 2020/03/24 18:32:13 by marvin           ###   ########.fr        #
+#    Updated: 2020/04/22 20:47:54 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRCS =	ft_atoi.c ft_btree_apply_infix.c ft_btree_apply_prefix.c \
 OBJS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 
 CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g 
 
 FTLIB = $(addprefix $(FTDIR), libft.a)
 FTINC = -I $(FTDIR)includes
