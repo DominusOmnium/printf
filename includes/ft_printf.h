@@ -16,9 +16,9 @@
 # include <stddef.h>
 # include "libft.h"
 # include "get_next_line.h"
-# ifdef _WIN32
+//# ifdef _WIN32
 #  include <stdint.h>
-# endif
+//# endif
 
 typedef enum
 {
