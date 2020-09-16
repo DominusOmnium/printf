@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parce_char_and_str.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 15:20:32 by dkathlee          #+#    #+#             */
-/*   Updated: 2020/02/06 15:24:28 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/09/16 19:58:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ char		*str_w(wchar_t *str, t_printf *p)
 	char	*tmp;
 	char	*tmp1;
 
-	res = ft_memalloc(1);
+	if ((res = ft_memalloc(1)) == NULL)
+		exit(1);
 	while (*str != '\0')
 	{
 		tmp = char_to_str((int)*str);

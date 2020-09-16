@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 11:49:26 by dkathlee          #+#    #+#             */
-/*   Updated: 2020/03/24 16:42:58 by marvin           ###   ########.fr       */
+/*   Updated: 2020/09/16 20:00:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,21 @@ void	parse_string(const char **format, t_printf *p)
 
 int		ft_printf(const char *format, ...)
 {
-	t_printf	*p;
-	int			print_num;
+	t_printf	p;
 
-	p = ft_memalloc(sizeof(t_printf));
-	va_start(p->args, format);
-	p->print_num = 0;
-	p->print = NULL;
+	va_start(p.args, format);
+	p.print_num = 0;
+	p.print = NULL;
 	while (*format)
 	{
-		reset(p);
+		reset(&p);
 		if (*format == '%')
-			parse_percent(&format, p);
+			parse_percent(&format, &p);
 		else
-			parse_string(&format, p);
+			parse_string(&format, &p);
 	}
-	va_end(p->args);
-	write(1, p->print, p->print_num);
-	ft_memdel((void**)&(p->print));
-	print_num = p->print_num;
-	ft_memdel((void**)&p);
-	return (print_num);
+	va_end(p.args);
+	write(1, p.print, p.print_num);
+	ft_memdel((void**)&(p.print));
+	return (p.print_num);
 }
