@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 12:08:40 by dkathlee          #+#    #+#              #
-#    Updated: 2020/08/25 00:19:32 by marvin           ###   ########.fr        #
+#    Updated: 2020/09/11 15:21:27 by dkathlee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS =	ft_atoi.c ft_btree_apply_infix.c ft_btree_apply_prefix.c \
 	ft_dlst_index_of.c ft_dlst_pop.c get_next_line.c ft_word_count.c ft_strjoin2.c \
 	ft_strind.c ft_itoa_base.c printf.c parse_args.c flags.c utils.c percent.c \
 	float.c float_to_str.c long_arith.c check_flags_and_specs.c parce_char_and_str.c \
+	check_wildcart.c
 
 OBJS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 
