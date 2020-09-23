@@ -46,7 +46,7 @@ static int			read_to_buf(const int fd, t_list_fds *curr)
 			end = curr->buff;
 			if ((curr->buff = ft_strjoin(curr->buff, buf)) == NULL)
 				return (-1);
-			//ft_memdel((void**)&end);
+			ft_memdel((void**)&end);
 			if (ft_strrchr(buf, '\n') != NULL)
 				break ;
 		}
@@ -80,7 +80,7 @@ int					get_next_line(const int fd, char **line)
 		end = NULL;
 	else if ((end = ft_strdup(end + 1)) == NULL)
 		return (-1);
-	//ft_memdel((void**)&(curr->buff));
+	ft_memdel((void**)&(curr->buff));
 	curr->buff = end;
 	return (1);
 }

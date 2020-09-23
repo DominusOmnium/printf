@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_btree_create_node.c                             :+:      :+:    :+:   */
+/*   check_wildcart.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/10 14:06:16 by dkathlee          #+#    #+#             */
-/*   Updated: 2019/09/11 10:16:30 by dkathlee         ###   ########.fr       */
+/*   Created: 2020/09/11 15:19:17 by dkathlee          #+#    #+#             */
+/*   Updated: 2020/09/11 15:19:39 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-t_btree	*ft_btree_create_node(void *item)
+void		check_wildcart(const char **f, t_printf *p)
 {
-	t_btree *node;
-
-	if ((node = ft_memalloc(sizeof(t_btree))) == NULL)
-		return (NULL);
-	node->item = item;
-	node->left = 0;
-	node->right = 0;
-	return (node);
+	if (**f == '*' && *(*f + 1))
+	{
+		p->width = va_arg(p->args, int);
+		if (p->width < 0)
+		{
+			p->flags.minus = TRUE;
+			p->width = -(p->width);
+		}
+	}
+	else if (**f == '.' && *(*f + 1) == '*')
+	{
+		p->precision = va_arg(p->args, int);
+		if (p->precision < 0)
+			p->precision = -1;
+		(*f)++;
+	}
 }

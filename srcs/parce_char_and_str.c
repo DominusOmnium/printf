@@ -70,7 +70,8 @@ char		*str_w(wchar_t *str, t_printf *p)
 	char	*tmp;
 	char	*tmp1;
 
-	res = ft_memalloc(1);
+	if ((res = ft_memalloc(1)) == NULL)
+		return (NULL);
 	while (*str != '\0')
 	{
 		tmp = char_to_str((int)*str);

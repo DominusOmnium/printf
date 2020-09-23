@@ -6,7 +6,7 @@
 /*   By: dkathlee <dkathlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:07:47 by dkathlee          #+#    #+#             */
-/*   Updated: 2020/02/06 16:42:24 by dkathlee         ###   ########.fr       */
+/*   Updated: 2020/09/11 15:19:36 by dkathlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,26 +86,6 @@ void		check_flags(const char *f, t_printf *p)
 		check_flags1(f, p);
 }
 
-void		check_wildcart(const char **f, t_printf *p)
-{
-	if (**f == '*' && *(*f + 1))
-	{
-		p->width = va_arg(p->args, int);
-		if (p->width < 0)
-		{
-			p->flags.minus = TRUE;
-			p->width = -(p->width);
-		}
-	}
-	else if (**f == '.' && *(*f + 1) == '*')
-	{
-		p->precision = va_arg(p->args, int);
-		if (p->precision < 0)
-			p->precision = -1;
-		(*f)++;
-	}
-}
-
 void		check_flags_and_specs(const char **f, t_printf *p)
 {
 	while (**f && (is_flag(**f) || is_spec(**f) ||
@@ -115,7 +95,6 @@ void		check_flags_and_specs(const char **f, t_printf *p)
 		check_wildcart(f, p);
 		if (**f > '0' && **f <= '9')
 		{
-			//p->width = (p->width == -1) ? ft_atoi(*f) : p->width;
 			p->width = ft_atoi(*f);
 			while (ft_isdigit(**f))
 				(*f)++;
